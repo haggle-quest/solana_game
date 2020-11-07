@@ -45,10 +45,10 @@ func _on_offer_slider_value_changed(value):
 	# TODO not sure why the offer slider is returning a real number instead 
 	# of an int?
 	current_offer = int(value)
-	if value == 0:
-		displayed_offer.text = "Reject"
-	elif value == 21:
-		displayed_offer.text = "Accept"
-	else:
-		displayed_offer.text = str(value)
+#	if value == 0:
+#		displayed_offer.text = "Reject"
+#	elif value == 21:
+#		displayed_offer.text = "Accept"
+#	else:
+#		displayed_offer.text = str(value)
 
