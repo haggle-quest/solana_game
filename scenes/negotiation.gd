@@ -7,39 +7,87 @@ onready var player = $player_character
 onready var npc_ai = $npc
 
 onready var offers_label = $UI/Offers
+onready var remaining_npcs = $UI/Panel/HBoxContainer/Remaining_npcs
+onready var offer_slider = $UI/offer_slider
+
+export var player_starting_gold := 200
+export var player_max_items := 10
 
 # Saved weights for AI
-const MODEL_FILE_NAME = "res://cfr_plus_new_payoffs_2000.json"
-onready var model_weights
+const SELLER_MODEL_FILE_NAME = "res://cfr_plus_new_payoffs_2000.json"
+const BUYER_MODEL_FILE_NAME = "res://cfr_plus_buyers_payoffs_changed_2000.json"
 
 var agents
 # Seller always goes first
-const seller_id = 0
-const buyer_id = 1
+const SELLER_ID = 0
+const BUYER_ID = 1
 
 func load_model_from_file(model_file_name):
 	var model_file = File.new()
 	model_file.open(model_file_name, File.READ)
-	model_weights = parse_json(model_file.get_as_text())
+	var model_weights = parse_json(model_file.get_as_text())
 	print(model_weights['1 Ask_10'])
 	print(model_weights['1 Ask_10'].keys())
 	print(model_weights['1 Ask_10'].values())
+	return model_weights
 
 func _ready():
-	# Only need to load and add weights once
-	load_model_from_file(MODEL_FILE_NAME)
-	npc_ai.model_weights = model_weights
-	for i in range(1,100):
-		print("New NPC")
+	yield(player_buying_phase(), "completed")
+	print("player buying phase completed")
+	yield(player_selling_phase(), "completed")
 
-#		var npc_ai = NPC_AI_scene.instance()
-		npc_ai.init_npc()
-		agents = [npc_ai, player]
+func player_selling_phase():
+			### Init NPC
+	# Only need to load and add weights once
+	npc_ai.agent_name = "NPC Buyer"
+	npc_ai.model_weights = load_model_from_file(BUYER_MODEL_FILE_NAME)
+	randomize()
+	var npc_internal_values = range(1,21)
+	npc_internal_values.shuffle()
+	print("NPC Buyer order: ", npc_internal_values)
+	### Init Player
+	# Player gold is starting out in debt
+	offer_slider.is_player_selling = true
+	player.total_gold = player.total_gold - player_starting_gold
+#	player.max_items = player_max_items
+	# Seller goes first
+	agents = [player, npc_ai]
+	# TODO make this generalizable for both buying and selling
+	var num_sellers = len(npc_internal_values)
+	for internal_value in npc_internal_values:
+		num_sellers -= 1
+		remaining_npcs.text = "Remaining\n\rSellers:\n\r%s" % num_sellers
+		print("New NPC")
+		npc_ai.internal_value = internal_value
 		yield(start_negotiation(agents), "completed")
-		yield(get_tree().create_timer(2.0), "timeout")
-#		npc_ai.queue_free()
-	pass
-#	npc_ai.queue_free() 
+		if player.total_items <= 0:
+			return
+
+func player_buying_phase():
+	### Init NPC
+	# Only need to load and add weights once
+	npc_ai.agent_name = "NPC Seller"
+	npc_ai.model_weights = load_model_from_file(SELLER_MODEL_FILE_NAME)
+	randomize()
+	var npc_internal_values = range(1,21)
+	npc_internal_values.shuffle()
+	print("NPC Seller order: ", npc_internal_values)
+	### Init Player
+	offer_slider.is_player_selling = false
+	player.total_gold = player_starting_gold
+	player.max_items = player_max_items
+	# Seller goes first
+	agents = [npc_ai, player]
+	# TODO make this generalizable for both buying and selling
+	var num_sellers = len(npc_internal_values)
+	for internal_value in npc_internal_values:
+		num_sellers -= 1
+		remaining_npcs.text = "Remaining\n\rSellers:\n\r%s" % num_sellers
+		print("New NPC")
+		npc_ai.internal_value = internal_value
+		yield(start_negotiation(agents), "completed")
+		if player.total_items >= player_max_items:
+			return
 
 func start_negotiation(agents):
 	var offers := []
@@ -51,32 +99,33 @@ func start_negotiation(agents):
 		
 		this_offer = yield(agents[this_actor].make_offer(offers), "completed")
 		print("Offer: ", this_offer)
-		offers.append(this_offer)
-
-#		this_offer = agents[this_actor].current_offer
 		if this_offer == 22:
 			offers_label.text = offers_label.text + "\n\r\n\rRejected >:0"
-			return
+			break
 		elif this_offer == 21:
 			# Deal accepted
 			offers_label.text = offers_label.text + "\n\r\n\rAccepted :)"
-			agents[seller_id].close_deal(this_offer, seller_id)
-			agents[buyer_id].close_deal(this_offer, buyer_id)
-			return
-		var offers_text = get_offers_text(offers)
+			agents[SELLER_ID].close_deal(offers.back(), SELLER_ID)
+			agents[BUYER_ID].close_deal(offers.back(), BUYER_ID)
+			break
+		# Only add an offer to the list if it's not accept or reject
+		offers.append(this_offer)
+		var offers_text = get_offers_text(offers, agents)
 		offers_label.text = offers_text
 		num_turns += 1
 		this_actor = (this_actor + 1) % 2
 #		print("Value of this: ", this)
-	yield(get_tree().create_timer(1.0), "timeout")
+	yield(get_tree().create_timer(0.4), "timeout")
+	offers_label.text = ""
 
 
-func get_offers_text(offers):
+func get_offers_text(offers, agents):
 	var out_text
+	
 	if len(offers) >= 1:
-		out_text = "NPC Asked For: " + str(offers[0])
+		out_text = "%s Asked For: %s" %[agents[SELLER_ID].agent_name, offers[0]]
 	if len(offers) >= 2:
-		out_text += "\n\r\n\rPlayer Offered: " + str(offers[1])
+		out_text += "\n\r\n\r%s Offered: %s" % [agents[BUYER_ID].agent_name, offers[1]]
 	if len(offers) >= 3:
-		out_text += "\n\r\n\rNPC Asked For: " + str(offers[2])
+		out_text += "\n\r\n\r%s Countered With: %s" % [agents[SELLER_ID].agent_name, offers[2]]
 	return out_text

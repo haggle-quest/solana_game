@@ -10,6 +10,8 @@ var current_offer
 
 var model_weights
 
+var agent_name = "NPC"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -69,8 +71,12 @@ func create_information_state(internal_value, offers):
 	var this_information_state
 	if len(offers) == 0:
 		this_information_state = str(internal_value)
+	elif len(offers) == 1:
+		this_information_state = str(internal_value) + ' Ask_' + str(offers[0])
 	elif len(offers) == 2:
 		this_information_state = str(internal_value) + ' Ask_' + str(offers[0]) +  ' Bid_' + str(offers[1])
+	elif len(offers) == 3:
+		this_information_state = str(internal_value) + ' Ask_' + str(offers[0]) +  ' Bid_' + str(offers[1])  + ' Ask_' + str(offers[2])
 	else:
 		assert(this_information_state, "Error, not implemented")
 	return(this_information_state)

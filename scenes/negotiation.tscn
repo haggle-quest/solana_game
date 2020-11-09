@@ -47,24 +47,24 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="UI"]
 margin_top = -2.0
 margin_right = 360.0
-margin_bottom = 52.0
+margin_bottom = 87.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Panel"]
 margin_right = 360.0
-margin_bottom = 54.0
-size_flags_horizontal = 6
-size_flags_vertical = 6
+margin_bottom = 87.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Total_gold" type="Label" parent="UI/Panel/HBoxContainer"]
-margin_right = 61.0
-margin_bottom = 54.0
+margin_right = 87.0
+margin_bottom = 87.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Gold: 
@@ -73,10 +73,23 @@ align = 1
 valign = 1
 uppercase = true
 
+[node name="Avg_price_paid" type="Label" parent="UI/Panel/HBoxContainer"]
+margin_left = 91.0
+margin_right = 178.0
+margin_bottom = 87.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Average
+Price paid: 
+"
+align = 1
+valign = 1
+uppercase = true
+
 [node name="Total_items" type="Label" parent="UI/Panel/HBoxContainer"]
-margin_left = 65.0
-margin_right = 127.0
-margin_bottom = 54.0
+margin_left = 182.0
+margin_right = 269.0
+margin_bottom = 87.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Items: 
@@ -85,26 +98,15 @@ align = 1
 valign = 1
 uppercase = true
 
-[node name="Avg_price_paid" type="Label" parent="UI/Panel/HBoxContainer"]
-margin_left = 131.0
-margin_right = 242.0
-margin_bottom = 54.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Avg price paid: 
-"
-align = 1
-valign = 1
-uppercase = true
-
-[node name="Avg_price_sold" type="Label" parent="UI/Panel/HBoxContainer"]
-margin_left = 246.0
+[node name="Remaining_npcs" type="Label" parent="UI/Panel/HBoxContainer"]
+margin_left = 273.0
 margin_right = 360.0
-margin_bottom = 54.0
+margin_bottom = 87.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Avg price sold: 
-"
+text = "Remaining
+Sellers:
+%s"
 align = 1
 valign = 1
 uppercase = true
