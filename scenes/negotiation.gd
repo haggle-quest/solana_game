@@ -48,6 +48,8 @@ func player_selling_phase():
 	### Init Player
 	# Player gold is starting out in debt
 	offer_slider.is_player_selling = true
+	offer_slider.min_value = 20
+	offer_slider.max_value = 39
 	player.total_gold = player.total_gold - player_starting_gold
 #	player.max_items = player_max_items
 	# Seller goes first
@@ -56,7 +58,7 @@ func player_selling_phase():
 	var num_sellers = len(npc_internal_values)
 	for internal_value in npc_internal_values:
 		num_sellers -= 1
-		remaining_npcs.text = "Remaining\n\rSellers:\n\r%s" % num_sellers
+		remaining_npcs.text = "Remaining\n\rBuyers:\n\r%s" % num_sellers
 		print("New NPC")
 		npc_ai.internal_value = internal_value
 		yield(start_negotiation(agents), "completed")
@@ -92,12 +94,12 @@ func player_buying_phase():
 func start_negotiation(agents):
 	var offers := []
 	var this_offer
-	var this_actor = 0
+	var this_actor_id = 0
 	var num_turns = 0
 	while num_turns < 4:
 #		yield(get_tree().create_timer(2.0), "timeout")
 		
-		this_offer = yield(agents[this_actor].make_offer(offers), "completed")
+		this_offer = yield(agents[this_actor_id].make_offer(offers, this_actor_id), "completed")
 		print("Offer: ", this_offer)
 		if this_offer == 22:
 			offers_label.text = offers_label.text + "\n\r\n\rRejected >:0"
@@ -111,9 +113,11 @@ func start_negotiation(agents):
 		# Only add an offer to the list if it's not accept or reject
 		offers.append(this_offer)
 		var offers_text = get_offers_text(offers, agents)
+		if this_actor_id == SELLER_ID:
+			yield(get_tree().create_timer(0.3), "timeout")
 		offers_label.text = offers_text
 		num_turns += 1
-		this_actor = (this_actor + 1) % 2
+		this_actor_id = (this_actor_id + 1) % 2
 #		print("Value of this: ", this)
 	yield(get_tree().create_timer(0.4), "timeout")
 	offers_label.text = ""

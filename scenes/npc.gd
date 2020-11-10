@@ -12,6 +12,10 @@ var model_weights
 
 var agent_name = "NPC"
 
+# Seller always goes first
+const SELLER_ID = 0
+const BUYER_ID = 1
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -22,18 +26,29 @@ func init_npc():
 	internal_value = rng.randi_range(1,17)
 
 
-func make_offer(offers):
+func make_offer(offers, agent_id):
 	var information_state
 #	print("Offerings: ", internal_value, offers.join(""))
 	# A very cheesy hack to make sure the yield function in the parent function
 	# has time to wait until the signal is emitted
-	yield(get_tree().create_timer(0.25), "timeout")
+	var these_offers = []
+	for offer in offers:
+		if agent_id == BUYER_ID:
+			these_offers.append(offer - 19)
+			# We have to subtract 19 from everything
+			pass
+		else:
+			these_offers.append(offer)
+	yield(get_tree().create_timer(0.1), "timeout")
+
 #	print(offers)
-	information_state = create_information_state(internal_value, offers)
+	information_state = create_information_state(internal_value, these_offers)
 	print(information_state)
 	print(model_weights[information_state])
 	var these_weights = model_weights[information_state]
 	current_offer = get_weighted_random_choice(these_weights)
+	if agent_id == BUYER_ID and current_offer != 21 and current_offer != 22:
+		current_offer += 19
 #	current_offer = internal_value
 	return(current_offer)
 #	return 1

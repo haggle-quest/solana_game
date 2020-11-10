@@ -37,7 +37,7 @@ func max_items_set(value):
 	total_items_label.text = "Items:\n\r%s/%s" % [total_items, value]
 
 # Called when the node enters the scene tree for the first time.
-func make_offer(offers):
+func make_offer(offers, agent_id):
 	make_offer_button.disabled = false
 	reject_offer_button.disabled = false
 	accept_offer_button.disabled = false

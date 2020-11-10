@@ -19,8 +19,8 @@ func _ready():
 
 
 func _on_offer_slider_value_changed(value):
-	if not make_offer.disabled and not is_player_selling:
+	if not make_offer.disabled:
 		make_offer.text = """Offer: """ + str(value)
-	elif not make_offer.disabled and is_player_selling:
-		make_offer.text = """Offer: """ + str(value + 19)
-		pass
+#	elif not make_offer.disabled and is_player_selling:
+#		make_offer.text = """Offer: """ + str(value + 19)
+#		pass

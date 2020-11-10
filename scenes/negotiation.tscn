@@ -1,19 +1,34 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/negotiation.gd" type="Script" id=1]
 [ext_resource path="res://scenes/npc.gd" type="Script" id=2]
 [ext_resource path="res://scenes/player_character.gd" type="Script" id=3]
 [ext_resource path="res://scenes/player_action.gd" type="Script" id=4]
 [ext_resource path="res://scenes/offer_slider.gd" type="Script" id=5]
+[ext_resource path="res://fonts/Shaifont-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://ui_theme.tres" type="Theme" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 41
+font_data = ExtResource( 6 )
 
 [node name="Negotiation" type="Node"]
 script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.780392, 0.666667, 0.462745, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="UI" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 1.0
 margin_bottom = 1.0
+theme = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -30,10 +45,13 @@ __meta__ = {
 }
 
 [node name="offer_slider" type="HSlider" parent="UI"]
-margin_left = 17.0
-margin_top = 481.0
-margin_right = 344.0
-margin_bottom = 503.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = -46.0
+margin_right = -20.0
+margin_bottom = -30.0
 rect_scale = Vector2( 1, 2 )
 min_value = 1.0
 max_value = 20.0
@@ -45,16 +63,15 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="UI"]
-margin_top = -2.0
-margin_right = 360.0
-margin_bottom = 87.0
+anchor_right = 1.0
+margin_bottom = 83.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Panel"]
-margin_right = 360.0
-margin_bottom = 87.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
@@ -63,8 +80,8 @@ __meta__ = {
 }
 
 [node name="Total_gold" type="Label" parent="UI/Panel/HBoxContainer"]
-margin_right = 87.0
-margin_bottom = 87.0
+margin_right = 117.0
+margin_bottom = 83.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Gold: 
@@ -73,23 +90,10 @@ align = 1
 valign = 1
 uppercase = true
 
-[node name="Avg_price_paid" type="Label" parent="UI/Panel/HBoxContainer"]
-margin_left = 91.0
-margin_right = 178.0
-margin_bottom = 87.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Average
-Price paid: 
-"
-align = 1
-valign = 1
-uppercase = true
-
 [node name="Total_items" type="Label" parent="UI/Panel/HBoxContainer"]
-margin_left = 182.0
-margin_right = 269.0
-margin_bottom = 87.0
+margin_left = 121.0
+margin_right = 238.0
+margin_bottom = 83.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Items: 
@@ -99,24 +103,27 @@ valign = 1
 uppercase = true
 
 [node name="Remaining_npcs" type="Label" parent="UI/Panel/HBoxContainer"]
-margin_left = 273.0
+margin_left = 242.0
 margin_right = 360.0
-margin_bottom = 87.0
+margin_bottom = 83.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Remaining
-Sellers:
+text = "Sellers:
 %s"
 align = 1
 valign = 1
 uppercase = true
 
 [node name="player_action" type="GridContainer" parent="UI"]
-margin_left = 1.0
-margin_top = 536.0
-margin_right = 361.0
-margin_bottom = 638.0
-custom_constants/hseparation = 29
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -168.0
+margin_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+custom_constants/hseparation = 12
 columns = 3
 script = ExtResource( 4 )
 __meta__ = {
@@ -124,53 +131,71 @@ __meta__ = {
 }
 
 [node name="reject_offer" type="Button" parent="UI/player_action"]
-margin_right = 100.0
-margin_bottom = 102.0
+margin_right = 112.0
+margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Reject Offer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="reject_offer_label" type="Label" parent="UI/player_action/reject_offer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "REJECT
+OFFER"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="make_offer" type="Button" parent="UI/player_action"]
-margin_left = 129.0
-margin_right = 229.0
-margin_bottom = 102.0
+margin_left = 124.0
+margin_right = 236.0
+margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Offer 10"
+text = "OFFER 10"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="make_offer_label" type="Label" parent="UI/player_action/make_offer"]
+margin_right = 40.0
+margin_bottom = 26.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="accept_offer" type="Button" parent="UI/player_action"]
-margin_left = 258.0
-margin_right = 358.0
-margin_bottom = 102.0
+margin_left = 248.0
+margin_right = 360.0
+margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Accept Offer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="accept_offer_label" type="Label" parent="UI/player_action/accept_offer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 2.0
+text = "ACCEPT
+OFFER"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="player_character" type="Node2D" parent="."]
 script = ExtResource( 3 )
-
-[node name="PLAYER_SPRITE_STANDIN" type="Label" parent="player_character"]
-margin_left = 133.0
-margin_top = 389.0
-margin_right = 179.0
-margin_bottom = 403.0
-rect_scale = Vector2( 2, 2 )
-text = "PLAYER"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="npc" type="Node2D" parent="."]
 script = ExtResource( 2 )
@@ -180,7 +205,7 @@ margin_left = 136.0
 margin_top = 144.0
 margin_right = 182.0
 margin_bottom = 158.0
-rect_scale = Vector2( 2, 2 )
+custom_fonts/font = SubResource( 1 )
 text = "NPC"
 align = 1
 valign = 1
