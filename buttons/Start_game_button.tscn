@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://buttons/main_menu_button.tscn" type="PackedScene" id=1]
+
+[node name="Start_game_button" instance=ExtResource( 1 )]
+scene_to_load = "res://scenes/negotiation.tscn"
+
+[node name="Label" parent="." index="0"]
+text = "START NEW GAME"

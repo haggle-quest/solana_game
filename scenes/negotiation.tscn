@@ -1,16 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/negotiation.gd" type="Script" id=1]
-[ext_resource path="res://scenes/npc.gd" type="Script" id=2]
+[ext_resource path="res://scenes/npc.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/player_character.gd" type="Script" id=3]
 [ext_resource path="res://scenes/player_action.gd" type="Script" id=4]
 [ext_resource path="res://scenes/offer_slider.gd" type="Script" id=5]
-[ext_resource path="res://fonts/Shaifont-Regular.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://ui_theme.tres" type="Theme" id=7]
-
-[sub_resource type="DynamicFont" id=1]
-size = 41
-font_data = ExtResource( 6 )
 
 [node name="Negotiation" type="Node"]
 script = ExtResource( 1 )
@@ -34,11 +29,11 @@ __meta__ = {
 }
 
 [node name="Offers" type="Label" parent="UI"]
-anchor_top = 0.5
+anchor_top = 0.6125
 anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -102.0
-margin_bottom = 27.0
+anchor_bottom = 0.6125
+margin_top = -103.0
+margin_bottom = 26.0
 align = 1
 __meta__ = {
 "_edit_use_anchors_": true
@@ -64,7 +59,7 @@ __meta__ = {
 
 [node name="Panel" type="Panel" parent="UI"]
 anchor_right = 1.0
-margin_bottom = 83.0
+margin_bottom = 91.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -81,7 +76,7 @@ __meta__ = {
 
 [node name="Total_gold" type="Label" parent="UI/Panel/HBoxContainer"]
 margin_right = 117.0
-margin_bottom = 83.0
+margin_bottom = 91.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Gold: 
@@ -93,7 +88,7 @@ uppercase = true
 [node name="Total_items" type="Label" parent="UI/Panel/HBoxContainer"]
 margin_left = 121.0
 margin_right = 238.0
-margin_bottom = 83.0
+margin_bottom = 91.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Items: 
@@ -105,7 +100,7 @@ uppercase = true
 [node name="Remaining_npcs" type="Label" parent="UI/Panel/HBoxContainer"]
 margin_left = 242.0
 margin_right = 360.0
-margin_bottom = 83.0
+margin_bottom = 91.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Sellers:
@@ -197,21 +192,8 @@ __meta__ = {
 [node name="player_character" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
-[node name="npc" type="Node2D" parent="."]
-script = ExtResource( 2 )
-
-[node name="NPC_SPRITE_STANDIN" type="Label" parent="npc"]
-margin_left = 136.0
-margin_top = 144.0
-margin_right = 182.0
-margin_bottom = 158.0
-custom_fonts/font = SubResource( 1 )
-text = "NPC"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="npc" parent="." instance=ExtResource( 2 )]
+position = Vector2( 138, 194 )
 [connection signal="value_changed" from="UI/offer_slider" to="UI/offer_slider" method="_on_offer_slider_value_changed"]
 [connection signal="value_changed" from="UI/offer_slider" to="player_character" method="_on_offer_slider_value_changed"]
 [connection signal="pressed" from="UI/player_action/reject_offer" to="UI/player_action" method="_on_reject_offer_pressed"]

@@ -40,6 +40,8 @@ func player_selling_phase():
 			### Init NPC
 	# Only need to load and add weights once
 	npc_ai.agent_name = "NPC Buyer"
+	# clear the previous models weights, maybe this will stop it from breaking?
+	npc_ai.model_weights = {}
 	npc_ai.model_weights = load_model_from_file(BUYER_MODEL_FILE_NAME)
 	randomize()
 	var npc_internal_values = range(1,21)

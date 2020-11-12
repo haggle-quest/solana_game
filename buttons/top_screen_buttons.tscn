@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://buttons/main_menu_button.gd" type="Script" id=2]
+
+[node name="main_menu_button" type="Button"]
+margin_right = 154.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 150, 40 )
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -4.0
+margin_bottom = 3.0
+rect_min_size = Vector2( 150, 40 )
+text = "Label Long"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
