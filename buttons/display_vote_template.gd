@@ -14,7 +14,7 @@ func set_issue_title(value):
 	$IndividualIssue/issue_title.text = value
 
 func set_num_votes(value):
-	$IndividualIssue/number_votes.text = "VOTES\n\r%s" % value
+	$IndividualIssue.find_node("number_votes").text = "%s" % value
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

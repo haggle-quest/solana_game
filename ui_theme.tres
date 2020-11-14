@@ -11,6 +11,7 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+shadow_size = 1
 
 [sub_resource type="StyleBoxEmpty" id=3]
 
@@ -22,12 +23,14 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+shadow_size = 1
 
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.709804, 0.596078, 0.388235, 1 )
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.298039, 0.184314, 0.0313726, 1 )
+shadow_size = 1
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.298039, 0.184314, 0.0313726, 1 )

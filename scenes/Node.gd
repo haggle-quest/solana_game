@@ -8,6 +8,10 @@ var private_key
 var keypair_file_path = "user://keypair.json"
 var voter_info_file_path = "user://voter_info.json"
 
+var global_voter_info
+var global_keypair
+var global_available_votes
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$HTTPRequest.connect("request_completed", self, "_on_HTTPRequest_request_completed")
@@ -32,15 +36,19 @@ func assign_variables(json):
 	public_key = json['createdMintAccount']
 	private_key = json['readableAccount']['privateKey']
 	var keypair = {"public_key": public_key, "private_key": private_key}
-	var save_keypair = File.new()
-	save_keypair.open(keypair_file_path, File.WRITE)
-	save_keypair.store_line(to_json(keypair))
-	save_keypair.close()
+	global_available_votes = json['tokenBalance']
+#	var save_keypair = File.new()
+#	save_keypair.open(keypair_file_path, File.WRITE)
+	# Double up all of the code 
+	global_keypair = keypair
+#	save_keypair.store_line(to_json(keypair))
+#	save_keypair.close()
 	
-	var save_voter_info = File.new()
-	save_voter_info.open(voter_info_file_path, File.WRITE)
-	save_voter_info.store_line(to_json(json))
-	save_voter_info.close()
+#	var save_voter_info = File.new()
+#	save_voter_info.open(voter_info_file_path, File.WRITE)
+	global_voter_info = json
+#	save_voter_info.store_line(to_json(json))
+#	save_voter_info.close()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

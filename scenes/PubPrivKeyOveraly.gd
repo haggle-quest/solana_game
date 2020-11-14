@@ -9,10 +9,12 @@ var keypair_file_path = "user://keypair.json"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var keypair_file = File.new()
+#	var keypair_file = File.new()
 	# TODO wait until it does exist
-	keypair_file.open(keypair_file_path, File.READ)
-	var keypair = parse_json(keypair_file.get_as_text())
+#	keypair_file.open(keypair_file_path, File.READ)
+	# Have to load differently because cookies
+#	var keypair = parse_json(keypair_file.get_as_text())
+	var keypair = LoadAddresses.global_keypair
 	$CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Private_key_input.text = keypair['private_key']
 	$CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Public_key_input.text = keypair['public_key']
 	

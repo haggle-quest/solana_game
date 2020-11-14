@@ -16,9 +16,9 @@ func _ready():
 	for button in $VBoxContainer/CenterContainer/VBoxContainer.get_children():
 		button.connect("pressed", self, "_on_Button_pressed", [button.scene_to_load])
 		pass # Replace with function body.
-	var file_check = File.new()
-	var does_file_exist = file_check.file_exists(keypair_file_path)
-	if does_file_exist:
+#	var file_check = File.new()
+#	var does_file_exist = file_check.file_exists(keypair_file_path)
+	if LoadAddresses.public_key:
 		on_create_account_finished()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

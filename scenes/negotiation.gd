@@ -52,7 +52,7 @@ func player_selling_phase():
 	offer_slider.is_player_selling = true
 	offer_slider.min_value = 20
 	offer_slider.max_value = 39
-	player.total_gold = player.total_gold - player_starting_gold
+#	player.total_gold = player.total_gold - player_starting_gold
 #	player.max_items = player_max_items
 	# Seller goes first
 	agents = [player, npc_ai]
