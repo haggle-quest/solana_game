@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://imagesfont/beaver.png" type="Texture" id=1]
+[ext_resource path="res://scenes/cute_character.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "bounce_while_waiting"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 2, 0.5 ),
+"update": 0,
+"values": [ Vector2( 0, -67 ), Vector2( 0, -80 ), Vector2( 0, -67 ) ]
+}
+
+[node name="MarginContainer" type="MarginContainer"]
+margin_top = 147.0
+margin_right = 360.0
+margin_bottom = 376.0
+custom_constants/margin_top = -67
+custom_constants/margin_bottom = -54
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+anim_is_playing = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_top = -67.0
+margin_right = 360.0
+margin_bottom = 283.0
+rect_min_size = Vector2( 200, 350 )
+size_flags_horizontal = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect"]
+playback_speed = 0.75
+anims/bounce_while_waiting = SubResource( 1 )
+
+[node name="Loading" type="MarginContainer" parent="."]
+margin_left = 143.0
+margin_top = 233.0
+margin_right = 217.0
+margin_bottom = 283.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 36
+
+[node name="Label" type="Label" parent="Loading"]
+margin_right = 74.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "LOADING..."
+align = 1
+valign = 2

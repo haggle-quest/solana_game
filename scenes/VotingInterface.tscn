@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/PubPrivKeyOveraly.tscn" type="PackedScene" id=2]
+[ext_resource path="res://buttons/display_overlay/top_screen_ui.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/VotingInterface.gd" type="Script" id=5]
+[ext_resource path="res://scenes/cute_character.tscn" type="PackedScene" id=6]
 
 [node name="VotingInterface" type="Node"]
+script = ExtResource( 5 )
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
@@ -28,364 +32,56 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TopBar" type="HBoxContainer" parent="Control/VBoxContainer"]
+[node name="top_screen_ui" parent="Control/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
 margin_right = 360.0
-margin_bottom = 26.0
-
-[node name="Refresh" type="Button" parent="Control/VBoxContainer/TopBar"]
-margin_right = 178.0
-margin_bottom = 26.0
-size_flags_horizontal = 3
-text = "Refresh"
-
-[node name="MainMenuButton" type="Button" parent="Control/VBoxContainer/TopBar"]
-margin_left = 182.0
-margin_right = 360.0
-margin_bottom = 26.0
-size_flags_horizontal = 3
-text = "MainMenu"
+margin_bottom = 40.0
 
 [node name="VotingStatsPanel" type="PanelContainer" parent="Control/VBoxContainer"]
-margin_top = 30.0
+margin_top = 44.0
 margin_right = 360.0
-margin_bottom = 56.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 0, 50 )
 
 [node name="VotingStatsHbox" type="HBoxContainer" parent="Control/VBoxContainer/VotingStatsPanel"]
 margin_right = 360.0
-margin_bottom = 26.0
+margin_bottom = 50.0
+alignment = 1
 
 [node name="AvailableVotes" type="Label" parent="Control/VBoxContainer/VotingStatsPanel/VotingStatsHbox"]
 margin_right = 360.0
-margin_bottom = 26.0
+margin_bottom = 50.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
-text = "Available Votes 10/10"
+text = "Available Votes 10"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="cute_character" parent="Control/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 98.0
+margin_bottom = 327.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer"]
+margin_top = 331.0
+margin_right = 360.0
+margin_bottom = 349.0
+custom_constants/margin_top = 18
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Control/VBoxContainer"]
-margin_top = 60.0
-margin_right = 360.0
-margin_bottom = 586.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="ListOfIssues" type="VBoxContainer" parent="Control/VBoxContainer/ScrollContainer"]
-margin_right = 348.0
-margin_bottom = 668.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="DynamicIssueItem" type="PanelContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues"]
-margin_right = 348.0
-margin_bottom = 55.0
-
-[node name="IndividualIssue" type="HBoxContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem"]
-margin_right = 348.0
-margin_bottom = 55.0
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem/IndividualIssue"]
-margin_right = 58.0
-margin_bottom = 55.0
-text = "Votes:
-3"
-align = 1
-valign = 1
-
-[node name="IssueTitle" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem/IndividualIssue"]
-margin_left = 62.0
-margin_right = 223.0
-margin_bottom = 55.0
-size_flags_horizontal = 3
-text = "Add quadratic voting"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem/IndividualIssue"]
-margin_left = 227.0
-margin_right = 348.0
-margin_bottom = 55.0
-
-[node name="SubtractVotes" type="Button" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem/IndividualIssue/HBoxContainer"]
-margin_right = 50.0
-margin_bottom = 55.0
-rect_min_size = Vector2( 50, 50 )
-text = "-"
-
-[node name="VoteCount" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem/IndividualIssue/HBoxContainer"]
-margin_left = 54.0
-margin_top = 14.0
-margin_right = 67.0
-margin_bottom = 40.0
-text = "0"
-
-[node name="AddVotes" type="Button" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem/IndividualIssue/HBoxContainer"]
-margin_left = 71.0
-margin_right = 121.0
-margin_bottom = 55.0
-rect_min_size = Vector2( 50, 50 )
-text = "+"
-
-[node name="DynamicIssueItem2" type="PanelContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues"]
-margin_top = 59.0
-margin_right = 348.0
-margin_bottom = 114.0
-
-[node name="IndividualIssue" type="HBoxContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem2"]
-margin_right = 348.0
-margin_bottom = 55.0
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem2/IndividualIssue"]
-margin_right = 58.0
-margin_bottom = 55.0
-text = "Votes:
-2"
-align = 1
-valign = 1
-
-[node name="IssueTitle" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem2/IndividualIssue"]
-margin_left = 62.0
-margin_right = 223.0
-margin_bottom = 55.0
-size_flags_horizontal = 3
-text = "Add quadratic voting"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem2/IndividualIssue"]
-margin_left = 227.0
-margin_right = 348.0
-margin_bottom = 55.0
-
-[node name="SubtractVotes" type="Button" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem2/IndividualIssue/HBoxContainer"]
-margin_right = 50.0
-margin_bottom = 55.0
-rect_min_size = Vector2( 50, 50 )
-text = "-"
-
-[node name="VoteCount" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem2/IndividualIssue/HBoxContainer"]
-margin_left = 54.0
-margin_top = 14.0
-margin_right = 67.0
-margin_bottom = 40.0
-text = "0"
-
-[node name="AddVotes" type="Button" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem2/IndividualIssue/HBoxContainer"]
-margin_left = 71.0
-margin_right = 121.0
-margin_bottom = 55.0
-rect_min_size = Vector2( 50, 50 )
-text = "+"
-
-[node name="DynamicIssueItem3" type="PanelContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues"]
-margin_top = 118.0
-margin_right = 348.0
-margin_bottom = 260.0
-
-[node name="IndividualIssue" type="HBoxContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem3"]
-margin_right = 348.0
-margin_bottom = 142.0
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem3/IndividualIssue"]
-margin_top = 43.0
-margin_right = 58.0
-margin_bottom = 98.0
-text = "Votes:
-4"
-align = 1
-valign = 1
-
-[node name="IssueTitle" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem3/IndividualIssue"]
-margin_left = 62.0
-margin_right = 223.0
-margin_bottom = 142.0
-size_flags_horizontal = 3
-text = "A bunch of really long titles as to what the suggested feature will be"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem3/IndividualIssue"]
-margin_left = 227.0
-margin_right = 348.0
-margin_bottom = 142.0
-
-[node name="SubtractVotes" type="Button" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem3/IndividualIssue/HBoxContainer"]
-margin_top = 46.0
-margin_right = 50.0
-margin_bottom = 96.0
-rect_min_size = Vector2( 50, 50 )
-size_flags_horizontal = 5
-size_flags_vertical = 4
-text = "-"
-
-[node name="VoteCount" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem3/IndividualIssue/HBoxContainer"]
-margin_left = 54.0
-margin_top = 58.0
-margin_right = 67.0
-margin_bottom = 84.0
-text = "0"
-
-[node name="AddVotes" type="Button" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem3/IndividualIssue/HBoxContainer"]
-margin_left = 71.0
-margin_top = 46.0
-margin_right = 121.0
-margin_bottom = 96.0
-rect_min_size = Vector2( 50, 50 )
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "+"
-
-[node name="DynamicIssueItem4" type="PanelContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues"]
-margin_top = 264.0
-margin_right = 348.0
-margin_bottom = 435.0
-
-[node name="IndividualIssue" type="HBoxContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem4"]
-margin_right = 348.0
-margin_bottom = 171.0
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem4/IndividualIssue"]
-margin_top = 58.0
-margin_right = 58.0
-margin_bottom = 113.0
-text = "Votes:
-10"
-align = 1
-valign = 1
-
-[node name="IssueTitle" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem4/IndividualIssue"]
-margin_left = 62.0
-margin_right = 223.0
-margin_bottom = 171.0
-size_flags_horizontal = 3
-text = "Once this gets to a certain length the box ought to become scrollable downwards"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem4/IndividualIssue"]
-margin_left = 227.0
-margin_right = 348.0
-margin_bottom = 171.0
-
-[node name="SubtractVotes" type="Button" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem4/IndividualIssue/HBoxContainer"]
-margin_top = 60.0
-margin_right = 50.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 50, 50 )
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "-"
-
-[node name="VoteCount" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem4/IndividualIssue/HBoxContainer"]
-margin_left = 54.0
-margin_top = 72.0
-margin_right = 67.0
-margin_bottom = 98.0
-text = "0"
-
-[node name="AddVotes" type="Button" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem4/IndividualIssue/HBoxContainer"]
-margin_left = 71.0
-margin_top = 60.0
-margin_right = 121.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 50, 50 )
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "+"
-
-[node name="DynamicIssueItem5" type="PanelContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues"]
-margin_top = 439.0
-margin_right = 348.0
-margin_bottom = 668.0
-
-[node name="IndividualIssue" type="HBoxContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem5"]
-margin_right = 348.0
-margin_bottom = 229.0
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem5/IndividualIssue"]
-margin_top = 87.0
-margin_right = 58.0
-margin_bottom = 142.0
-text = "Votes:
-6"
-align = 1
-valign = 1
-
-[node name="IssueTitle" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem5/IndividualIssue"]
-margin_left = 62.0
-margin_right = 223.0
-margin_bottom = 229.0
-size_flags_horizontal = 3
-text = "A really long issue title just to see what will happen to the whole thing when it gets so long that it moves down"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem5/IndividualIssue"]
-margin_left = 227.0
-margin_right = 348.0
-margin_bottom = 229.0
-
-[node name="SubtractVotes" type="Button" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem5/IndividualIssue/HBoxContainer"]
-margin_top = 89.0
-margin_right = 50.0
-margin_bottom = 139.0
-rect_min_size = Vector2( 50, 50 )
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "-"
-
-[node name="VoteCount" type="Label" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem5/IndividualIssue/HBoxContainer"]
-margin_left = 54.0
-margin_top = 101.0
-margin_right = 67.0
-margin_bottom = 127.0
-text = "0"
-
-[node name="AddVotes" type="Button" parent="Control/VBoxContainer/ScrollContainer/ListOfIssues/DynamicIssueItem5/IndividualIssue/HBoxContainer"]
-margin_left = 71.0
-margin_top = 89.0
-margin_right = 121.0
-margin_bottom = 139.0
-rect_min_size = Vector2( 50, 50 )
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "+"
-
-[node name="CenterContainer" type="CenterContainer" parent="Control/VBoxContainer"]
-margin_top = 590.0
+margin_top = 353.0
 margin_right = 360.0
 margin_bottom = 640.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
 
-[node name="Button" type="Button" parent="Control/VBoxContainer/CenterContainer"]
-margin_left = 130.0
-margin_right = 230.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
+[node name="list_of_issues" type="VBoxContainer" parent="Control/VBoxContainer/ScrollContainer"]
+margin_right = 360.0
+margin_bottom = 287.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "VOTE!"
 
 [node name="PubPrivKeyOveraly" parent="." instance=ExtResource( 2 )]
+visible = false
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

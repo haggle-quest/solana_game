@@ -3,9 +3,9 @@
 [ext_resource path="res://ui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/FadeIn.tscn" type="PackedScene" id=2]
 [ext_resource path="res://imagesfont/Shaifont-Regular.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://buttons/Start_game_button.tscn" type="PackedScene" id=4]
-[ext_resource path="res://buttons/Feature_request_voting.tscn" type="PackedScene" id=5]
-[ext_resource path="res://imagesfont/beaver.png" type="Texture" id=6]
+[ext_resource path="res://buttons/change_scenes/Start_game_button.tscn" type="PackedScene" id=4]
+[ext_resource path="res://buttons/change_scenes/Feature_request_voting.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/cute_character.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/MainMenu.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFont" id=1]
@@ -67,22 +67,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="MainMenu/VBoxContainer"]
-margin_top = 147.0
-margin_right = 360.0
-margin_bottom = 376.0
-custom_constants/margin_top = -67
-custom_constants/margin_bottom = -54
-
-[node name="TextureRect" type="TextureRect" parent="MainMenu/VBoxContainer/MarginContainer"]
-margin_top = -67.0
-margin_right = 360.0
-margin_bottom = 283.0
-rect_min_size = Vector2( 200, 350 )
-size_flags_horizontal = 3
-texture = ExtResource( 6 )
-expand = true
-stretch_mode = 6
+[node name="cute_character" parent="MainMenu/VBoxContainer" instance=ExtResource( 6 )]
 
 [node name="CenterContainer" type="CenterContainer" parent="MainMenu/VBoxContainer"]
 margin_top = 380.0
@@ -103,12 +88,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Start_game_button" parent="MainMenu/VBoxContainer/CenterContainer/VBoxContainer" instance=ExtResource( 4 )]
+[node name="Start_game_button2" parent="MainMenu/VBoxContainer/CenterContainer/VBoxContainer" instance=ExtResource( 4 )]
+disabled = true
 
 [node name="Feature_request_voting" parent="MainMenu/VBoxContainer/CenterContainer/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 124.0
 margin_bottom = 224.0
-scene_to_load = "res://scenes/VotingInterface.tscn"
+disabled = true
 
 [node name="FadeIn" parent="MainMenu" instance=ExtResource( 2 )]
 visible = false

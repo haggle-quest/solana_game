@@ -104,11 +104,11 @@ func start_negotiation(agents):
 		this_offer = yield(agents[this_actor_id].make_offer(offers, this_actor_id), "completed")
 		print("Offer: ", this_offer)
 		if this_offer == 22:
-			offers_label.text = offers_label.text + "\n\r\n\rRejected >:0"
+			offers_label.text = offers_label.text + "\n\rRejected >:0"
 			break
 		elif this_offer == 21:
 			# Deal accepted
-			offers_label.text = offers_label.text + "\n\r\n\rAccepted :)"
+			offers_label.text = offers_label.text + "\n\rAccepted :)"
 			agents[SELLER_ID].close_deal(offers.back(), SELLER_ID)
 			agents[BUYER_ID].close_deal(offers.back(), BUYER_ID)
 			break
@@ -131,7 +131,7 @@ func get_offers_text(offers, agents):
 	if len(offers) >= 1:
 		out_text = "%s Asked For: %s" %[agents[SELLER_ID].agent_name, offers[0]]
 	if len(offers) >= 2:
-		out_text += "\n\r\n\r%s Offered: %s" % [agents[BUYER_ID].agent_name, offers[1]]
+		out_text += "\n\r%s Offered: %s" % [agents[BUYER_ID].agent_name, offers[1]]
 	if len(offers) >= 3:
-		out_text += "\n\r\n\r%s Countered With: %s" % [agents[SELLER_ID].agent_name, offers[2]]
+		out_text += "\n\r%s Countered With: %s" % [agents[SELLER_ID].agent_name, offers[2]]
 	return out_text

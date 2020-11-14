@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/negotiation.gd" type="Script" id=1]
 [ext_resource path="res://scenes/npc.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/player_character.gd" type="Script" id=3]
 [ext_resource path="res://scenes/player_action.gd" type="Script" id=4]
 [ext_resource path="res://scenes/offer_slider.gd" type="Script" id=5]
+[ext_resource path="res://buttons/display_overlay/top_screen_ui.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui_theme.tres" type="Theme" id=7]
+[ext_resource path="res://scenes/PubPrivKeyOveraly.tscn" type="PackedScene" id=8]
 
 [node name="Negotiation" type="Node"]
 script = ExtResource( 1 )
@@ -28,10 +30,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="top_screen_ui" parent="UI" instance=ExtResource( 6 )]
+
 [node name="Offers" type="Label" parent="UI"]
-anchor_top = 0.6125
+anchor_top = 0.660937
 anchor_right = 1.0
-anchor_bottom = 0.6125
+anchor_bottom = 0.660937
 margin_top = -103.0
 margin_bottom = 26.0
 align = 1
@@ -59,7 +63,8 @@ __meta__ = {
 
 [node name="Panel" type="Panel" parent="UI"]
 anchor_right = 1.0
-margin_bottom = 91.0
+margin_top = 45.0
+margin_bottom = 136.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -193,9 +198,12 @@ __meta__ = {
 script = ExtResource( 3 )
 
 [node name="npc" parent="." instance=ExtResource( 2 )]
-position = Vector2( 138, 194 )
-[connection signal="value_changed" from="UI/offer_slider" to="UI/offer_slider" method="_on_offer_slider_value_changed"]
+position = Vector2( 148, 229 )
+
+[node name="PubPrivKeyOveraly" parent="." instance=ExtResource( 8 )]
+visible = false
 [connection signal="value_changed" from="UI/offer_slider" to="player_character" method="_on_offer_slider_value_changed"]
+[connection signal="value_changed" from="UI/offer_slider" to="UI/offer_slider" method="_on_offer_slider_value_changed"]
 [connection signal="pressed" from="UI/player_action/reject_offer" to="UI/player_action" method="_on_reject_offer_pressed"]
 [connection signal="pressed" from="UI/player_action/make_offer" to="UI/player_action" method="_on_make_offer_pressed"]
 [connection signal="pressed" from="UI/player_action/accept_offer" to="UI/player_action" method="_on_accept_offer_pressed"]
